@@ -1,0 +1,36 @@
+{
+    "name": "linkorb/libcloud-php",
+    "description": "",
+    "license": "MIT",
+    "type": "library",
+
+    "require": {
+        "php": ">=5.6",
+        "hampel/linode": "~3.1",
+        "symfony/http-foundation": "~2.7",
+        "toin0u/digitalocean-v2": "~2.0"
+    },
+
+    "require-dev": {
+    },
+
+    "keywords": [
+    ],
+
+    "authors": [
+        {
+            "name":     "LinkORB Engineering",
+            "email":    "engineering@linkorb.com"
+        },
+        {
+            "name":     "Denis Alimov",
+            "email":    "v03adk@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Linkorb\\LibCloud\\": "src/"
+        }
+    }
+}
