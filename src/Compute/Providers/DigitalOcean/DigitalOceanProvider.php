@@ -154,13 +154,13 @@ class DigitalOceanProvider extends Base
         $size = $this->toSize($dropletEntity->size);
         $image = $this->toImage($dropletEntity->image);
 
-        return new Node($dropletEntity->id, $dropletEntity->name, $this->stateMap[$dropletEntity->status], $public_ips,
-            $private_ips, 'digital_ocean', $size, $image, $extra);
+        return new Node($dropletEntity->id, $dropletEntity->name, NodeState::toString($this->stateMap[$dropletEntity->status]),
+            $public_ips, $private_ips, 'digital_ocean', $size, $image, $extra);
     }
 
     protected function toSize($sizeEntity)
     {
-        return new NodeSize(null, $sizeEntity->slug, $sizeEntity->memory, $sizeEntity->disk, $sizeEntity->transfer,
+        return new NodeSize($sizeEntity->slug, $sizeEntity->slug, $sizeEntity->memory, $sizeEntity->disk, $sizeEntity->transfer,
             $sizeEntity->priceHourly, 'digital_ocean', ['priceMonthly' => $sizeEntity->priceMonthly]);
     }
 

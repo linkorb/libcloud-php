@@ -230,8 +230,8 @@ class LinodeProvider extends Base
         $size = $this->listSizes($response['PLANID']);
         $image = new NodeImage(null, null, 'linode');
 
-        return new Node($response['LINODEID'], $response['LABEL'], $this->stateMap[$response['STATUS']], $public_ips,
-            $private_ips, 'linode', $size, $image, ['distributionvendor' => $response['DISTRIBUTIONVENDOR']]);
+        return new Node($response['LINODEID'], $response['LABEL'], NodeState::toString($this->stateMap[$response['STATUS']]),
+            $public_ips, $private_ips, 'linode', $size, $image, ['distributionvendor' => $response['DISTRIBUTIONVENDOR']]);
     }
 
     protected function toSize($response)
