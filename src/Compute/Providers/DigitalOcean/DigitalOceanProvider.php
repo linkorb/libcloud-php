@@ -66,7 +66,7 @@ class DigitalOceanProvider extends Base
 
     public function cloneNode(Node $node, ParameterBag $parameters)
     {
-       throw new \Exception('clone_node method not supported by Digital Ocean API');
+       throw new \Exception('cloneNode method not supported by Digital Ocean API');
     }
 
     public function destroyNode(Node $node)
@@ -81,7 +81,21 @@ class DigitalOceanProvider extends Base
 
     public function updateNode(Node $node, ParameterBag $parameters)
     {
-        // TODO: Implement update_node() method.
+        switch ($parameters->get('action'))
+        {
+            case 'passwordReset':
+                return $this->digitalocean->droplet()->passwordReset($node->getId());
+            case 'enableBackups':
+                return $this->digitalocean->droplet()->enableBackups($node->getId());
+            case 'disableBackups':
+                return $this->digitalocean->droplet()->disableBackups($node->getId());
+            case 'rename':
+                return $this->digitalocean->droplet()->rename($node->getId(), $parameters->get('name'));
+            case 'enableIpv6':
+                return $this->digitalocean->droplet()->enableIpv6($node->getId());
+            case 'enablePrivateNetworking':
+                return $this->digitalocean->droplet()->enablePrivateNetworking($node->getId());
+        }
     }
 
     public function listSizes($nodeSizeName = null)
