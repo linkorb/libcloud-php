@@ -30,7 +30,7 @@
 
     "autoload": {
         "psr-4": {
-            "Linkorb\\LibCloud\\": "src/"
+            "LibCloud\\": "src/"
         }
     }
 }

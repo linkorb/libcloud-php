@@ -1,16 +1,16 @@
 <?php
 
-namespace Linkorb\LibCloud\Compute\Providers\Linode;
+namespace LibCloud\Compute\Providers\Linode;
 
 use Hampel\Linode\Commands\AvailCommand;
 use Hampel\Linode\Commands\LinodeIpCommand;
-use Linkorb\LibCloud\Compute\Base;
-use Linkorb\LibCloud\Compute\Model\Node;
-use Linkorb\LibCloud\Compute\Model\NodeImage;
-use Linkorb\LibCloud\Compute\Model\NodeLocation;
-use Linkorb\LibCloud\Compute\Model\NodeSize;
-use Linkorb\LibCloud\Compute\Model\NodeState;
-use Linkorb\LibCloud\Compute\Providers\Linode\LinodeCommands\LinodeCommand;
+use LibCloud\Compute\Base;
+use LibCloud\Compute\Model\Node;
+use LibCloud\Compute\Model\NodeImage;
+use LibCloud\Compute\Model\NodeLocation;
+use LibCloud\Compute\Model\NodeSize;
+use LibCloud\Compute\Model\NodeState;
+use LibCloud\Compute\Providers\Linode\LinodeCommands\LinodeCommand;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Hampel\Linode\Linode;
 
@@ -28,7 +28,7 @@ class LinodeProvider extends Base
         $this->linode = Linode::make($this->accessToken);
     }
 
-    public function create_node(ParameterBag $parameters)
+    public function createNode(ParameterBag $parameters)
     {
         $options = [];
         try {
@@ -39,13 +39,13 @@ class LinodeProvider extends Base
 
             $command->setOptions($options);
             $response = $this->linode->execute($command)['LinodeID'];
-            return $this->toNode($this->list_nodes($response));
+            return $this->toNode($this->listNodes($response));
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
-    public function boot_node(Node $node)
+    public function bootNode(Node $node)
     {
         try {
             return $this->linode->execute(new LinodeCommand('boot', [
@@ -56,7 +56,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function list_nodes($nodeId = null)
+    public function listNodes($nodeId = null)
     {
         $args = $list = [];
         try {
@@ -70,7 +70,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function shutdown_node(Node $node)
+    public function shutdownNode(Node $node)
     {
         try {
             return $this->linode->execute(new LinodeCommand('shutdown', [
@@ -81,7 +81,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function reboot_node(Node $node)
+    public function rebootNode(Node $node)
     {
         try {
             return $this->linode->execute(new LinodeCommand('reboot', [
@@ -92,7 +92,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function clone_node(Node $node, ParameterBag $parameters)
+    public function cloneNode(Node $node, ParameterBag $parameters)
     {
         $options = [];
         try {
@@ -104,13 +104,13 @@ class LinodeProvider extends Base
 
             $command->setOptions($options);
             $response = $this->linode->execute($command)['LinodeID'];
-            return $this->toNode($this->list_nodes($response));
+            return $this->toNode($this->listNodes($response));
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
-    public function destroy_node(Node $node)
+    public function destroyNode(Node $node)
     {
         try {
             return $this->linode->execute(new LinodeCommand('delete', [
@@ -121,7 +121,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function resize_node(Node $node, NodeSize $nodeSize)
+    public function resizeNode(Node $node, NodeSize $nodeSize)
     {
         try {
             return $this->linode->execute(new LinodeCommand('resize', [
@@ -132,7 +132,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function update_node(Node $node, ParameterBag $parameters)
+    public function updateNode(Node $node, ParameterBag $parameters)
     {
         try {
             $command = new LinodeCommand('update');
@@ -148,7 +148,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function list_sizes($nodeSizeId = null)
+    public function listSizes($nodeSizeId = null)
     {
         $args = [];
         try {
@@ -162,7 +162,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function list_locations($nodeLocationId = null)
+    public function listLocations($nodeLocationId = null)
     {
         $args = [];
         try {
@@ -176,7 +176,7 @@ class LinodeProvider extends Base
         }
     }
 
-    public function list_images($nodeImageId = null)
+    public function listImages($nodeImageId = null)
     {
         $args = [];
         try {
@@ -227,7 +227,7 @@ class LinodeProvider extends Base
             }
         }
 
-        $size = $this->list_sizes($response['PLANID']);
+        $size = $this->listSizes($response['PLANID']);
         $image = new NodeImage(null, null, 'linode');
 
         return new Node($response['LINODEID'], $response['LABEL'], $this->stateMap[$response['STATUS']], $public_ips,

@@ -1,13 +1,13 @@
 <?php
 
-namespace Linkorb\LibCloud\Compute\Providers\DigitalOcean;
+namespace LibCloud\Compute\Providers\DigitalOcean;
 
-use Linkorb\LibCloud\Compute\Base;
-use Linkorb\LibCloud\Compute\Model\Node;
-use Linkorb\LibCloud\Compute\Model\NodeImage;
-use Linkorb\LibCloud\Compute\Model\NodeLocation;
-use Linkorb\LibCloud\Compute\Model\NodeSize;
-use Linkorb\LibCloud\Compute\Model\NodeState;
+use LibCloud\Compute\Base;
+use LibCloud\Compute\Model\Node;
+use LibCloud\Compute\Model\NodeImage;
+use LibCloud\Compute\Model\NodeLocation;
+use LibCloud\Compute\Model\NodeSize;
+use LibCloud\Compute\Model\NodeState;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
@@ -25,7 +25,7 @@ class DigitalOceanProvider extends Base
         $this->digitalocean = new DigitalOceanV2($adapter);
     }
 
-    public function create_node(ParameterBag $parameters)
+    public function createNode(ParameterBag $parameters)
     {
         try{
             $name = $parameters->get('name'); // human readable name of the newly created droplet
@@ -40,12 +40,12 @@ class DigitalOceanProvider extends Base
         }
     }
 
-    public function boot_node(Node $node)
+    public function bootNode(Node $node)
     {
         $this->digitalocean->droplet()->powerOn($node->getId());
     }
 
-    public function list_nodes($nodeId = null)
+    public function listNodes($nodeId = null)
     {
         if ($nodeId)
         {
@@ -54,37 +54,37 @@ class DigitalOceanProvider extends Base
         return array_map([$this, 'toNode'], $this->digitalocean->droplet()->getAll());
     }
 
-    public function shutdown_node(Node $node)
+    public function shutdownNode(Node $node)
     {
         $this->digitalocean->droplet()->shutdown($node->getId());
     }
 
-    public function reboot_node(Node $node)
+    public function rebootNode(Node $node)
     {
         $this->digitalocean->droplet()->reboot($node->getId());
     }
 
-    public function clone_node(Node $node, ParameterBag $parameters)
+    public function cloneNode(Node $node, ParameterBag $parameters)
     {
        throw new \Exception('clone_node method not supported by Digital Ocean API');
     }
 
-    public function destroy_node(Node $node)
+    public function destroyNode(Node $node)
     {
         $this->digitalocean->droplet()->delete($node->getId());
     }
 
-    public function resize_node(Node $node, NodeSize $nodeSize)
+    public function resizeNode(Node $node, NodeSize $nodeSize)
     {
         $this->digitalocean->droplet()->resize($node->getId(), $nodeSize->getId());
     }
 
-    public function update_node(Node $node, ParameterBag $parameters)
+    public function updateNode(Node $node, ParameterBag $parameters)
     {
         // TODO: Implement update_node() method.
     }
 
-    public function list_sizes($nodeSizeName = null)
+    public function listSizes($nodeSizeName = null)
     {
         $sizes = array_map([$this, 'toSize'], $this->digitalocean->size()->getAll());
         if ($nodeSizeName)
@@ -98,7 +98,7 @@ class DigitalOceanProvider extends Base
         return $sizes;
     }
 
-    public function list_locations($nodeLocationId = null)
+    public function listLocations($nodeLocationId = null)
     {
         $locations = array_map([$this, 'toLocation'], $this->digitalocean->region()->getAll());
         if ($nodeLocationId)
@@ -112,7 +112,7 @@ class DigitalOceanProvider extends Base
         return $locations;
     }
 
-    public function list_images($nodeImageId = null)
+    public function listImages($nodeImageId = null)
     {
         if ($nodeImageId)
         {

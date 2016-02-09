@@ -1,6 +1,6 @@
 <?php
 
-namespace Linkorb\LibCloud\Compute;
+namespace LibCloud\Compute;
 
 abstract class Base implements ComputeInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Linkorb\LibCloud\Compute\Providers\Linode\LinodeCommands;
+namespace LibCloud\Compute\Providers\Linode\LinodeCommands;
 
 use Hampel\Linode\Commands\LinodeCommand as HampelLinodeCommand;
 

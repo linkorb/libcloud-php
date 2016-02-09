@@ -1,6 +1,6 @@
 <?php
 
-namespace Linkorb\LibCloud\Compute\Model;
+namespace LibCloud\Compute\Model;
 
 class NodeLocation
 {
