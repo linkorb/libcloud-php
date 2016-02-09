@@ -7,7 +7,7 @@ class ComputeFactory
     /**
      * @param string $type provider name
      * @param string $accessToken api token
-     * @return LibCloud\Compute\ComputeInterface
+     * @return \LibCloud\Compute\ComputeInterface
      * @throws \Exception
      */
     public static function getProvider($type, $accessToken)
