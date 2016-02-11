@@ -22,7 +22,8 @@ class GoDaddyProvider extends Base
             'defaults' => [
                 'headers' => [
                     'Authorization' => 'sso-key '.$this->accessToken.':'.$this->accessTokenSecret,
-                    'Accept' => 'application/json'
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
                 ]
             ]
         ]);
