@@ -62,7 +62,7 @@ class GoDaddyProvider extends Base
     {
         try {
             $newRecord = $this->formatRecord($parameters);
-            $this->httpClient->patch("domains/{$zone->getDomain()}/records/", ['body' => json_encode($newRecord)]);
+            $this->httpClient->patch("domains/{$zone->getDomain()}/records/", ['body' => json_encode([$newRecord])]);
 
             $id = $newRecord['name'] . ':' . $newRecord['type'];
             return new Record($id, $newRecord['name'], $newRecord['type'], $newRecord['data'], $zone, 'go_daddy',
@@ -70,7 +70,6 @@ class GoDaddyProvider extends Base
         } catch (\Exception $e) {
 
         }
-
     }
 
     public function getZone($zoneDomain = null)
@@ -83,7 +82,6 @@ class GoDaddyProvider extends Base
         } catch (\Exception $e) {
 
         }
-
     }
 
     public function updateRecord(Record $record, ParameterBag $parameters)
@@ -91,14 +89,13 @@ class GoDaddyProvider extends Base
         try {
             $newRecord = $this->formatRecord($parameters);
             $this->httpClient->put("domains/{$record->getZone()->getDomain()}/records/{$record->getType()}/{$record->getName()}",
-                ['body' => json_encode($newRecord)]);
+                ['body' => json_encode([$newRecord])]);
 
             $id = $newRecord['name'] . ':' . $newRecord['type'];
             return new Record($id, $newRecord['name'], $newRecord['type'], $newRecord['data'], $record->getZone(),
                 'go_daddy', $newRecord['ttl']);
         } catch (\Exception $e) {
         }
-
     }
 
     public function getRecord(Zone $zone, $recordId)
@@ -111,7 +108,6 @@ class GoDaddyProvider extends Base
             }
         } catch (\Exception $e) {
         }
-
     }
 
     protected function toZone($response)
@@ -139,12 +135,12 @@ class GoDaddyProvider extends Base
             'type' => $type,
             'name' => $name,
             'data' => $data,
-            'priority' => 1,
-            'ttl' => $ttl
+            'ttl' => (int)$ttl
         ];
 
         if ($type == RecordType::SRV) {
             $newRecord = $newRecord + [
+                    'priority' => 1,
                     'service' => '',
                     'protocol' => '',
                     'port' => '',
