@@ -98,6 +98,20 @@ class GoDaddyProvider extends Base
         }
     }
 
+    public function putRecords(Zone $zone, ParameterBag $parameters)
+    {
+        try {
+            $records = [];
+            foreach ($parameters->get('records') as $r)
+            {
+                $records[] = $this->formatRecord($r);
+            }
+            $this->httpClient->put("domains/{$zone->getDomain()}/records",
+                ['body' => json_encode($records)]);
+        } catch (\Exception $e) {
+        }
+    }
+
     public function getRecord(Zone $zone, $recordId)
     {
         try {
