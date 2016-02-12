@@ -2,7 +2,7 @@
 
 PHP library for interacting with many of the popular cloud service providers using a unified API.
 
-<img src="https://s-media-cache-ak0.pinimg.com/236x/fa/6c/c7/fa6cc71a159403464aecd0f6248321bc.jpg" style="width: 100%" />
+<img src="http://upr.io/EPxv4p.png" style="width: 100%" />
 
 
 ## Introduction
