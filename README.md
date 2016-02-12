@@ -2,17 +2,20 @@
 
 PHP library for interacting with many of the popular cloud service providers using a unified API.
 
+<img src="https://s-media-cache-ak0.pinimg.com/236x/fa/6c/c7/fa6cc71a159403464aecd0f6248321bc.jpg" style="width: 100%" />
+
+
 ## Introduction
 
 This project aims to simplify the usage of cloud services by PHP developers. The scope of the project includes the following service types:
 
-* Compute: Create, Restart, Destroy and provision compute nodes in the cloud
-* DNS: Update DNS configurations at DNS providers
-* ObjectStorage: store objects in the cloud
-* LoadBalancer: Manage load balancer configurations at your IaaS provider
-* Container: Launch containers and manage images at CaaS providers
+* **Compute**: Create, Restart, Destroy and provision compute nodes in the cloud
+* **DNS**: Update DNS configurations at DNS providers
+* **ObjectStorage**: store objects in the cloud
+* **LoadBalancer**: Manage load balancer configurations at your IaaS provider
+* **Container**: Launch containers and manage images at CaaS providers
 
-This project is inspired by the Python library [libcloud](http://libcloud.apache.org) with the same name. We try to follow the design as closely as possible. We keep method names the same as the Python project, but updating it for [PSR2](http://www.php-fig.org/psr/psr-2/) compliance.
+This project is inspired by the awesome Python library [libcloud](http://libcloud.apache.org) with the same name. We try to follow the design as closely as possible. We keep method names the same as the Python project, but updating it for [PSR2](http://www.php-fig.org/psr/psr-2/) compliance.
 
 
 ## Using the library in your project
