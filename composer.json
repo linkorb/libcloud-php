@@ -1,8 +1,9 @@
 {
     "name": "linkorb/libcloud-php",
-    "description": "",
+    "description": "Unified API for compute, dns, objectstorage and other cloud services",
     "license": "MIT",
     "type": "library",
+    "keywords": ["compute", "dns", "objectstorage", "godaddy", "linode", "digital ocean", "s3", "cloud"],
 
     "require": {
         "php": ">=5.6",
@@ -13,10 +14,6 @@
 
     "require-dev": {
     },
-
-    "keywords": [
-    ],
-
     "authors": [
         {
             "name":     "LinkORB Engineering",
