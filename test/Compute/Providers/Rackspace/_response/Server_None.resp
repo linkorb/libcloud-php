@@ -1,0 +1,11 @@
+HTTP/1.1 404 Not Found
+Date: Wed, 17 Feb 2016 16:36:06 GMT
+Via: 1.1 Repose (Repose/7.1.3.0)
+Date: Wed, 17 Feb 2016 16:36:07 GMT
+x-trans-id: 4b32bc3d-d632-4f17-8c85-f268c64d6939
+Content-Type: application/json; charset=UTF-8
+X-Compute-Request-Id: req-a9593235-d54d-446b-9073-e4eb09262ea7
+Content-Length: 90
+Server: Jetty(9.2.z-SNAPSHOT)
+
+{"itemNotFound": {"message": "Instance not-a-server-id could not be found.", "code": 404}}

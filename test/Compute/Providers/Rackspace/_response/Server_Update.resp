@@ -1,0 +1,75 @@
+HTTP/1.1 200 OK
+Date: Thu, 18 Feb 2016 23:30:30 GMT, Thu, 18 Feb 2016 23:30:30 GMT
+Via: 1.1 Repose (Repose/7.1.3.0)
+x-trans-id: ee2c5a81-4099-46f9-bd1c-f47128fbd705
+Content-Type: application/json
+X-Compute-Request-Id: req-a76e1ff6-604e-4e20-990c-4e1e1bc853a3
+Content-Length: 1803
+Server: Jetty(9.2.z-SNAPSHOT)
+
+{
+  "server": {
+    "status": "ACTIVE",
+    "updated": "2016-02-18T22:01:07Z",
+    "hostId": "a5d30302ed93ee73f86bb84179cc3d3a1af5600eb8ba38d2ce2ee360",
+    "addresses": {
+      "public": [
+        {
+          "version": 4,
+          "addr": "203.0.113.187"
+        },
+        {
+          "version": 6,
+          "addr": "2001:DB8:dead:bea7:dead:900d:dead:1337"
+        }
+      ],
+      "private": [
+        {
+          "version": 4,
+          "addr": "10.179.64.203"
+        }
+      ]
+    },
+    "links": [
+      {
+        "href": "https://lon.servers.api.rackspacecloud.com/v2/00000000/servers/9bf30ec1-3452-4bc0-8499-24d2c9cb65b6",
+        "rel": "self"
+      },
+      {
+        "href": "https://lon.servers.api.rackspacecloud.com/00000000/servers/9bf30ec1-3452-4bc0-8499-24d2c9cb65b6",
+        "rel": "bookmark"
+      }
+    ],
+    "image": {
+      "id": "df27d481-63a5-40ca-8920-3d132ed643d9",
+      "links": [
+        {
+          "href": "https://lon.servers.api.rackspacecloud.com/00000000/images/df27d481-63a5-40ca-8920-3d132ed643d9",
+          "rel": "bookmark"
+        }
+      ]
+    },
+    "flavor": {
+      "id": "2",
+      "links": [
+        {
+          "href": "https://lon.servers.api.rackspacecloud.com/00000000/flavors/2",
+          "rel": "bookmark"
+        }
+      ]
+    },
+    "id": "9bf30ec1-3452-4bc0-8499-24d2c9cb65b6",
+    "user_id": "a931a436ed1045faac0eb4c7186b2282",
+    "name": "test-2-sauuucy",
+    "created": "2016-02-18T20:54:37Z",
+    "tenant_id": "00000000",
+    "OS-DCF:diskConfig": "AUTO",
+    "accessIPv4": "203.0.113.187",
+    "accessIPv6": "2001:DB8:dead:bea7:dead:900d:dead:1337",
+    "progress": 100,
+    "metadata": {
+      "rax_service_level_automation": "Complete",
+      "sdk": "OpenCloud/1.14.2 Guzzle/3.9.3 cURL/7.35.0 PHP/5.5.9-1ubuntu4.14"
+    }
+  }
+}

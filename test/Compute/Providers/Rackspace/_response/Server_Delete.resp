@@ -1,0 +1,8 @@
+HTTP/1.1 204 No Content
+Date: Thu, 18 Feb 2016 10:27:46 GMT, Thu, 18 Feb 2016 10:27:46 GMT
+Via: 1.1 Repose (Repose/7.1.3.0)
+x-trans-id: edc42a58-99f3-4b13-b04d-4b94fac13b3c
+Content-Type: application/json
+X-Compute-Request-Id: req-02db3d7c-a3c8-4208-8d2e-52990f528f5c
+Server: Jetty(9.2.z-SNAPSHOT)
+
