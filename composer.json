@@ -6,10 +6,11 @@
     "keywords": ["compute", "dns", "objectstorage", "godaddy", "linode", "digital ocean", "s3", "cloud"],
 
     "require": {
-        "php": ">=5.6",
+        "php": ">=5.4",
         "hampel/linode": "~3.1",
         "symfony/http-foundation": "~2.7",
-        "toin0u/digitalocean-v2": "~2.0"
+        "toin0u/digitalocean-v2": "~2.0",
+        "rackspace/php-opencloud": "^1.16"
     },
 
     "require-dev": {
@@ -28,6 +29,15 @@
     "autoload": {
         "psr-4": {
             "LibCloud\\": "src/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "LibCloud\\Test\\": "test/"
+        },
+        "psr-0": {
+            "OpenCloud\\": "vendor/rackspace/php-opencloud/tests/"
         }
     }
 }
