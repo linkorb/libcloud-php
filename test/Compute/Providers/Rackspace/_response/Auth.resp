@@ -1,0 +1,276 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 17 Feb 2016 23:55:05 GMT
+Content-Type: application/json
+Content-Length: 4929
+Connection: keep-alive
+X-NewRelic-App-Data: PxQGUF9aDwETVlhSBQgFVUYdFGQHBDcQUQxLA1tMXV1dORYzVBJHNQFUZAQUFVFQVThOFlhaUggXER5jLTU3SxJOCEwIFAQcA1EOWAJQH09VGhVYVgEPBgUGAldUBQMCXQdQET8=
+vary: Accept, Accept-Encoding, X-Auth-Token
+Front-End-Https: on
+
+{
+  "access": {
+    "token": {
+      "id": "AACSOZUEudlPeF_-Z4qTG5TofzxYpEN-Yvk9Eql4RdmmkCCdK5uYekExVLjwVi_UXVI3btBcCHdbSsh5NZHPNybGG3dhYchHG1S7z4YCMt6KA4MmJrwyey1Z-N4QTeqKiAXYrEVJc-I8Hg",
+      "expires": "2016-02-18T23:51:52.715Z",
+      "tenant": {
+        "id": "00000000",
+        "name": "00000000"
+      },
+      "RAX-AUTH:authenticatedBy": [
+        "APIKEY"
+      ]
+    },
+    "serviceCatalog": [
+      {
+        "name": "cloudBigData",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.bigdata.api.rackspacecloud.com/v1.0/00000000",
+            "versionInfo": "https://lon.bigdata.api.rackspacecloud.com/v1.0",
+            "versionList": "https://lon.bigdata.api.rackspacecloud.com/",
+            "versionId": "1"
+          },
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.bigdata.api.rackspacecloud.com/v2/00000000",
+            "versionInfo": "https://lon.bigdata.api.rackspacecloud.com/v2",
+            "versionList": "https://lon.bigdata.api.rackspacecloud.com/",
+            "versionId": "2"
+          }
+        ],
+        "type": "rax:bigdata"
+      },
+      {
+        "name": "cloudDatabases",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.databases.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:database"
+      },
+      {
+        "name": "cloudImages",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.images.api.rackspacecloud.com/v2"
+          }
+        ],
+        "type": "image"
+      },
+      {
+        "name": "cloudDNS",
+        "endpoints": [
+          {
+            "tenantId": "00000000",
+            "publicURL": "https://lon.dns.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:dns"
+      },
+      {
+        "name": "autoscale",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.autoscale.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:autoscale"
+      },
+      {
+        "name": "cloudOrchestration",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.orchestration.api.rackspacecloud.com/v1/00000000"
+          }
+        ],
+        "type": "orchestration"
+      },
+      {
+        "name": "cloudNetworks",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.networks.api.rackspacecloud.com/v2.0"
+          }
+        ],
+        "type": "network"
+      },
+      {
+        "name": "cloudServersOpenStack",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.servers.api.rackspacecloud.com/v2/00000000",
+            "versionInfo": "https://lon.servers.api.rackspacecloud.com/v2",
+            "versionList": "https://lon.servers.api.rackspacecloud.com/",
+            "versionId": "2"
+          }
+        ],
+        "type": "compute"
+      },
+      {
+        "name": "cloudQueues",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.queues.api.rackspacecloud.com/v1/00000000",
+            "internalURL": "https://snet-lon.queues.api.rackspacecloud.com/v1/00000000"
+          }
+        ],
+        "type": "rax:queues"
+      },
+      {
+        "name": "cloudMonitoring",
+        "endpoints": [
+          {
+            "tenantId": "00000000",
+            "publicURL": "https://monitoring.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:monitor"
+      },
+      {
+        "name": "cloudLoadBalancers",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.loadbalancers.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:load-balancer"
+      },
+      {
+        "name": "cloudBlockStorage",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.blockstorage.api.rackspacecloud.com/v1/00000000"
+          }
+        ],
+        "type": "volume"
+      },
+      {
+        "name": "cloudBackup",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.backup.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:backup"
+      },
+      {
+        "name": "cloudMetricsIngest",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://global.metrics-ingest.api.rackspacecloud.com/v2.0/00000000"
+          }
+        ],
+        "type": "rax:cloudmetrics"
+      },
+      {
+        "name": "cloudMetrics",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://global.metrics.api.rackspacecloud.com/v2.0/00000000"
+          }
+        ],
+        "type": "rax:cloudmetrics"
+      },
+      {
+        "name": "rackCDN",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://global.cdn.api.rackspacecloud.com/v1.0/00000000",
+            "internalURL": "https://global.cdn.api.rackspacecloud.com/v1.0/00000000"
+          }
+        ],
+        "type": "rax:cdn"
+      },
+      {
+        "name": "cloudFeeds",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "00000000",
+            "publicURL": "https://lon.feeds.api.rackspacecloud.com/00000000",
+            "internalURL": "https://atom.prod.lon3.us.ci.rackspace.net/00000000"
+          }
+        ],
+        "type": "rax:feeds"
+      },
+      {
+        "name": "cloudFiles",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "MossoCloudFS_00000000",
+            "publicURL": "https://storage101.lon3.clouddrive.com/v1/MossoCloudFS_00000000",
+            "internalURL": "https://snet-storage101.lon3.clouddrive.com/v1/MossoCloudFS_00000000"
+          }
+        ],
+        "type": "object-store"
+      },
+      {
+        "name": "cloudFilesCDN",
+        "endpoints": [
+          {
+            "region": "LON",
+            "tenantId": "MossoCloudFS_00000000",
+            "publicURL": "https://cdn3.clouddrive.com/v1/MossoCloudFS_00000000"
+          }
+        ],
+        "type": "rax:object-cdn"
+      }
+    ],
+    "user": {
+      "id": "a931a436ed1045faac0eb4c7186b2282",
+      "roles": [
+        {
+          "tenantId": "MossoCloudFS_00000000",
+          "id": "5",
+          "description": "A Role that allows a user access to keystone Service methods",
+          "name": "object-store:default"
+        },
+        {
+          "tenantId": "00000000",
+          "id": "6",
+          "description": "A Role that allows a user access to keystone Service methods",
+          "name": "compute:default"
+        },
+        {
+          "id": "3",
+          "description": "User Admin Role.",
+          "name": "identity:user-admin"
+        }
+      ],
+      "name": "testuser",
+      "RAX-AUTH:defaultRegion": "LON"
+    }
+  }
+}
