@@ -10,7 +10,8 @@
         "hampel/linode": "~3.1",
         "symfony/http-foundation": "~2.7",
         "toin0u/digitalocean-v2": "~2.0",
-        "rackspace/php-opencloud": "^1.16"
+        "rackspace/php-opencloud": "^1.16",
+        "linkorb/transip-php": "~5.0"
     },
 
     "require-dev": {
