@@ -64,7 +64,10 @@ class LinodeProvider extends Base
             {
                 $args = ['linodeid' => $nodeId];
             }
-            return array_map([$this, 'toNode'], $this->linode->execute(new LinodeCommand('list', $args)));
+            $list = array_map([$this, 'toNode'], $this->linode->execute(new LinodeCommand('list', $args)));
+            if ($nodeId)
+                return $list[0];
+            return $list;
         } catch (\Exception $e) {
             throw $e;
         }
