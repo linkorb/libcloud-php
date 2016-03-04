@@ -3,7 +3,6 @@
 namespace LibCloud\Compute\Providers\Linode;
 
 use Hampel\Linode\Commands\AvailCommand;
-use Hampel\Linode\Commands\LinodeIpCommand;
 use LibCloud\Compute\Base;
 use LibCloud\Compute\Model\Node;
 use LibCloud\Compute\Model\NodeImage;
@@ -11,6 +10,9 @@ use LibCloud\Compute\Model\NodeLocation;
 use LibCloud\Compute\Model\NodeSize;
 use LibCloud\Compute\Model\NodeState;
 use LibCloud\Compute\Providers\Linode\LinodeCommands\LinodeCommand;
+use LibCloud\Compute\Providers\Linode\LinodeCommands\LinodeDiskCommand;
+use LibCloud\Compute\Providers\Linode\LinodeCommands\LinodeConfigCommand;
+use LibCloud\Compute\Providers\Linode\LinodeCommands\LinodeIpCommand;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Hampel\Linode\Linode;
 
@@ -52,6 +54,79 @@ class LinodeProvider extends Base
     
     public function provisionNode(ParameterBag $parameters)
     {
+        $options = [];
+        
+        $label = $parameters->get('label');
+        $stackScriptId = $parameters->get('stackscriptid');
+        $distributionId = $parameters->get('distributionid');
+        $diskSize = $parameters->get('disksize');
+        $swapSize = $parameters->get('swapsize');
+        $rootPassword = $parameters->get('rootpassword');
+        $stackScriptUDFResponses = $parameters->get('StackScriptUDFResponses');
+
+        // ==================
+        $command = new LinodeCommand('create');
+        $options['planid'] = $parameters->get('size')->getId();
+        $options['datacenterid'] = $parameters->get('location')->getId();
+        $parameters->get('paymentterm') ? $options['paymentterm'] = $parameters->get('paymentterm') : null;
+
+        $command->setOptions($options);
+        $response = $this->linode->execute($command);
+        $nodeId = $response['LinodeID'];
+        
+        // ================
+        $command = new LinodeDiskCommand('createfromstackscript');
+        $options['linodeid'] = $nodeId;
+        $options['StackScriptID'] = $stackScriptId;
+        $options['DistributionID'] = $distributionId;
+        $options['Label'] = "OS " . $label;
+        $options['Size'] = $diskSize;
+        $options['RootPass'] = $rootPassword;
+        $options['StackScriptUDFResponses'] = $stackScriptUDFResponses;
+        
+        $command->setOptions($options);
+        $response = $this->linode->execute($command);
+        $osDiskId = $response['DiskID'];
+
+        // ==========
+        $command = new LinodeDiskCommand('create');
+        $options['linodeid'] = $nodeId;
+        $options['Label'] = "SWAP " . $label;
+        $options['Size'] = $swapSize;
+        $options['Type'] = 'swap';
+
+        $command->setOptions($options);
+        $response = $this->linode->execute($command);
+        //print_r($response);
+        $swapDiskId = $response['DiskID'];
+
+        // ==========
+        $command = new LinodeConfigCommand('create');
+        $options['linodeid'] = $nodeId;
+        $options['KernelID'] = 138;
+        $options['Label'] = "Config " . $label;
+        $options['DiskList'] = $osDiskId . ',' . $swapDiskId;
+
+        $command->setOptions($options);
+        $response = $this->linode->execute($command);
+        $configId = $response['ConfigID'];
+
+        // ==========
+        $command = new LinodeIpCommand('addprivate');
+        $options['linodeid'] = $nodeId;
+
+        $command->setOptions($options);
+        $response = $this->linode->execute($command);
+        $privateIpId = $response['IPADDRESSID'];
+        $privateIpAddress = $response['IPADDRESS'];
+
+        $command = new LinodeCommand('update');
+        $options['linodeid'] = $nodeId;
+        $options['Label'] = str_replace(' ', '_', $label);
+        
+        $command->setOptions($options);
+        $response = $this->linode->execute($command);
+
         
     }
 
