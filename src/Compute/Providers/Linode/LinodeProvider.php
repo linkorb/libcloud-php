@@ -17,9 +17,14 @@ use Hampel\Linode\Linode;
 class LinodeProvider extends Base
 {
     private $linode;
-    private $stateMap = [-2 => NodeState::UNKNOWN, -1 => NodeState::PENDING, 0 => NodeState::PENDING,
-        1 => NodeState::RUNNING, 2 => NodeState::TERMINATED,
-        3 => NodeState::REBOOTING, 4 => NodeState::UNKNOWN
+    private $stateMap = [
+        -2 => NodeState::UNKNOWN,
+        -1 => NodeState::PENDING,
+        0 => NodeState::PENDING,
+        1 => NodeState::RUNNING,
+        2 => NodeState::TERMINATED,
+        3 => NodeState::REBOOTING,
+        4 => NodeState::UNKNOWN
     ];
 
     public function __construct($accessToken)
@@ -44,6 +49,11 @@ class LinodeProvider extends Base
             throw $e;
         }
     }
+    
+    public function provisionNode(ParameterBag $parameters)
+    {
+        
+    }
 
     public function bootNode(Node $node)
     {
@@ -60,13 +70,13 @@ class LinodeProvider extends Base
     {
         $args = $list = [];
         try {
-            if ($nodeId)
-            {
+            if ($nodeId) {
                 $args = ['linodeid' => $nodeId];
             }
             $list = array_map([$this, 'toNode'], $this->linode->execute(new LinodeCommand('list', $args)));
-            if ($nodeId)
+            if ($nodeId) {
                 return $list[0];
+            }
             return $list;
         } catch (\Exception $e) {
             throw $e;
@@ -155,8 +165,7 @@ class LinodeProvider extends Base
     {
         $args = [];
         try {
-            if ($nodeSizeId)
-            {
+            if ($nodeSizeId) {
                  $args = ['planid' => $nodeSizeId];
             }
             return array_map([$this, 'toSize'], $this->linode->execute(new AvailCommand('linodeplans', $args)));
@@ -169,11 +178,15 @@ class LinodeProvider extends Base
     {
         $args = [];
         try {
-            if ($nodeLocationId)
-            {
+            if ($nodeLocationId) {
                 $args = ['datacenterid' => $nodeLocationId];
             }
-            return array_map([$this, 'toLocation'], $this->linode->execute(new AvailCommand('datacenters', $args)));
+            return array_map(
+                [$this, 'toLocation'],
+                $this->linode->execute(
+                    new AvailCommand('datacenters', $args)
+                )
+            );
         } catch (\Exception $e) {
             throw $e;
         }
@@ -183,28 +196,34 @@ class LinodeProvider extends Base
     {
         $args = [];
         try {
-            if ($nodeImageId)
-            {
+            if ($nodeImageId) {
                 $args = ['distributionid' => $nodeImageId];
             }
-            return array_map([$this, 'toImage'], $this->linode->execute(new AvailCommand('distributions', $args)));
+            return array_map(
+                [$this, 'toImage'],
+                $this->linode->execute(
+                    new AvailCommand('distributions', $args)
+                )
+            );
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
-    private function list_ips($linodeId)
+    private function listIps($linodeId)
     {
         $args = $list = [];
         try {
-            if ($linodeId)
-            {
+            if ($linodeId) {
                 $args = ['linodeid' => $linodeId];
             }
             $response = $this->linode->execute(new LinodeIpCommand('list', $args));
-            foreach ($response as $item)
-            {
-                $list[] = ['nodeId' => $item['LINODEID'], 'public' => $item['ISPUBLIC'], 'ipAddress' => $item['IPADDRESS']];
+            foreach ($response as $item) {
+                $list[] = [
+                    'nodeId' => $item['LINODEID'],
+                    'public' => $item['ISPUBLIC'],
+                    'ipAddress' => $item['IPADDRESS']
+                ];
             }
             return $list;
         } catch (\Exception $e) {
@@ -215,17 +234,14 @@ class LinodeProvider extends Base
 
     protected function toNode($response)
     {
+        //print_r($response);
         $public_ips = $private_ips = $extra = [];
 
-        $ips = $this->list_ips($response['LINODEID']);
-        foreach ($ips as $ip)
-        {
-            if ($ip['public'])
-            {
+        $ips = $this->listIps($response->getId());
+        foreach ($ips as $ip) {
+            if ($ip['public']) {
                 $public_ips[] = $ip['ipAddress'];
-            }
-            else
-            {
+            } else {
                 $private_ips[] = $ip['ipAddress'];
             }
         }
@@ -233,23 +249,49 @@ class LinodeProvider extends Base
         $size = $this->listSizes($response['PLANID']);
         $image = new NodeImage(null, null, 'linode');
 
-        return new Node($response['LINODEID'], $response['LABEL'], NodeState::toString($this->stateMap[$response['STATUS']]),
-            $public_ips, $private_ips, 'linode', $size, $image, ['distributionvendor' => $response['DISTRIBUTIONVENDOR']]);
+        return new Node(
+            $response['LINODEID'],
+            $response['LABEL'],
+            NodeState::toString($this->stateMap[$response['STATUS']]),
+            $public_ips,
+            $private_ips,
+            'linode',
+            $size,
+            $image,
+            ['distributionvendor' => $response['DISTRIBUTIONVENDOR']]
+        );
     }
 
     protected function toSize($response)
     {
-        return new NodeSize($response['PLANID'], $response['LABEL'], $response['RAM'], $response['DISK'], $response['XFER'],
-            $response['HOURLY'], 'linode', ['priceMonthly' => $response['PRICE']]);
+        return new NodeSize(
+            $response['PLANID'],
+            $response['LABEL'],
+            $response['RAM'],
+            $response['DISK'],
+            $response['XFER'],
+            $response['HOURLY'],
+            'linode',
+            ['priceMonthly' => $response['PRICE']]
+        );
     }
 
     protected function toImage($response)
     {
-        return new NodeImage($response['DISTRIBUTIONID'], $response['LABEL'], 'linode');
+        return new NodeImage(
+            $response['DISTRIBUTIONID'],
+            $response['LABEL'],
+            'linode'
+        );
     }
 
     protected function toLocation($response)
     {
-        return new NodeLocation($response['DATACENTERID'], $response['LOCATION'], null, 'linode');
+        return new NodeLocation(
+            $response['DATACENTERID'],
+            $response['LOCATION'],
+            null,
+            'linode'
+        );
     }
 }

@@ -44,8 +44,16 @@ class NodeSize
      */
     protected $extra;
 
-    public function __construct($id, $name, $ram, $disk, $bandwidth, $price, $provider, $extra = [])
-    {
+    public function __construct(
+        $id,
+        $name = null,
+        $ram = null,
+        $disk = null,
+        $bandwidth = null,
+        $price = null,
+        $provider = null,
+        $extra = []
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->ram = $ram;

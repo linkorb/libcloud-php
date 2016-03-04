@@ -18,11 +18,11 @@ class NodeState
     public static function toString($state)
     {
         $class = new \ReflectionClass(__CLASS__);
-        foreach ($class->getConstants() as $string => $int)
-        {
-            if ($int == $state)
+        foreach ($class->getConstants() as $string => $int) {
+            if ($int == $state) {
                 return $string;
+            }
         }
-        throw new \Exception('Undefined state '.$state.' in NodeState class');
+        throw new \Exception('Undefined state ' . $state . ' in NodeState class');
     }
 }

@@ -15,8 +15,12 @@ use DigitalOceanV2\DigitalOceanV2;
 class DigitalOceanProvider extends Base
 {
     private $digitalocean;
-    private $stateMap = ['new' => NodeState::PENDING, 'off' => NodeState::STOPPED, 'active' => NodeState::RUNNING,
-        'archive' => NodeState::TERMINATED];
+    private $stateMap = [
+        'new' => NodeState::PENDING,
+        'off' => NodeState::STOPPED,
+        'active' => NodeState::RUNNING,
+        'archive' => NodeState::TERMINATED
+    ];
 
     public function __construct($accessToken)
     {
@@ -27,15 +31,13 @@ class DigitalOceanProvider extends Base
 
     public function createNode(ParameterBag $parameters)
     {
-        try{
+        try {
             $name = $parameters->get('name'); // human readable name of the newly created droplet
             $location = $parameters->get('location')->getId(); // datacenter region id
             $size = $parameters->get('size')->getName(); // size name. digital ocean does not have id in Size
             $image = $parameters->get('image')->getId(); // image id
             return $this->toNode($this->digitalocean->droplet()->create($name, $location, $size, $image));
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -47,8 +49,7 @@ class DigitalOceanProvider extends Base
 
     public function listNodes($nodeId = null)
     {
-        if ($nodeId)
-        {
+        if ($nodeId) {
             return $this->toNode($this->digitalocean->droplet()->getById($nodeId));
         }
         return array_map([$this, 'toNode'], $this->digitalocean->droplet()->getAll());
@@ -66,7 +67,7 @@ class DigitalOceanProvider extends Base
 
     public function cloneNode(Node $node, ParameterBag $parameters)
     {
-       throw new \Exception('cloneNode method not supported by Digital Ocean API');
+        throw new \Exception('cloneNode method not supported by Digital Ocean API');
     }
 
     public function destroyNode(Node $node)
@@ -81,8 +82,7 @@ class DigitalOceanProvider extends Base
 
     public function updateNode(Node $node, ParameterBag $parameters)
     {
-        switch ($parameters->get('action'))
-        {
+        switch ($parameters->get('action')) {
             case 'passwordReset':
                 return $this->digitalocean->droplet()->passwordReset($node->getId());
             case 'enableBackups':
@@ -101,12 +101,11 @@ class DigitalOceanProvider extends Base
     public function listSizes($nodeSizeName = null)
     {
         $sizes = array_map([$this, 'toSize'], $this->digitalocean->size()->getAll());
-        if ($nodeSizeName)
-        {
-            foreach ($sizes as $size)
-            {
-                if ($size->getName() == $nodeSizeName)
+        if ($nodeSizeName) {
+            foreach ($sizes as $size) {
+                if ($size->getName() == $nodeSizeName) {
                     return $size;
+                }
             }
         }
         return $sizes;
@@ -115,12 +114,11 @@ class DigitalOceanProvider extends Base
     public function listLocations($nodeLocationId = null)
     {
         $locations = array_map([$this, 'toLocation'], $this->digitalocean->region()->getAll());
-        if ($nodeLocationId)
-        {
-            foreach ($locations as $location)
-            {
-                if ($location->getId() == $nodeLocationId)
+        if ($nodeLocationId) {
+            foreach ($locations as $location) {
+                if ($location->getId() == $nodeLocationId) {
                     return $location;
+                }
             }
         }
         return $locations;
@@ -128,8 +126,7 @@ class DigitalOceanProvider extends Base
 
     public function listImages($nodeImageId = null)
     {
-        if ($nodeImageId)
-        {
+        if ($nodeImageId) {
             return $this->toImage($this->digitalocean->image()->getById($nodeImageId));
         }
         return array_map([$this, 'toImage'], $this->digitalocean->image()->getAll());
@@ -139,14 +136,10 @@ class DigitalOceanProvider extends Base
     {
         $public_ips = $private_ips = $extra = [];
 
-        foreach ($dropletEntity->networks as $network)
-        {
-            if ($network->type == 'public')
-            {
+        foreach ($dropletEntity->networks as $network) {
+            if ($network->type == 'public') {
                 $public_ips[] = $network->ipAddress;
-            }
-            else
-            {
+            } else {
                 $private_ips[] = $network->ipAddress;
             }
         }
@@ -154,14 +147,31 @@ class DigitalOceanProvider extends Base
         $size = $this->toSize($dropletEntity->size);
         $image = $this->toImage($dropletEntity->image);
 
-        return new Node($dropletEntity->id, $dropletEntity->name, NodeState::toString($this->stateMap[$dropletEntity->status]),
-            $public_ips, $private_ips, 'digital_ocean', $size, $image, $extra);
+        return new Node(
+            $dropletEntity->id,
+            $dropletEntity->name,
+            NodeState::toString($this->stateMap[$dropletEntity->status]),
+            $public_ips,
+            $private_ips,
+            'digital_ocean',
+            $size,
+            $image,
+            $extra
+        );
     }
 
     protected function toSize($sizeEntity)
     {
-        return new NodeSize($sizeEntity->slug, $sizeEntity->slug, $sizeEntity->memory, $sizeEntity->disk, $sizeEntity->transfer,
-            $sizeEntity->priceHourly, 'digital_ocean', ['priceMonthly' => $sizeEntity->priceMonthly]);
+        return new NodeSize(
+            $sizeEntity->slug,
+            $sizeEntity->slug,
+            $sizeEntity->memory,
+            $sizeEntity->disk,
+            $sizeEntity->transfer,
+            $sizeEntity->priceHourly,
+            'digital_ocean',
+            ['priceMonthly' => $sizeEntity->priceMonthly]
+        );
     }
 
     protected function toImage($imageEntity)

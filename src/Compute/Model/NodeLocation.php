@@ -24,7 +24,7 @@ class NodeLocation
      */
     protected $provider;
 
-    public function __construct($id, $name, $country, $provider)
+    public function __construct($id, $name = null, $country = null, $provider = null)
     {
         $this->id = $id;
         $this->name = $name;
